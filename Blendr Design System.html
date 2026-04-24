@@ -1,0 +1,1254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Blendr | Branding & Design System</title>
+<meta name="viewport" content="width=1280">
+<style>
+  /* —— Magallanes — Blendr's sole typeface —— */
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-Thin.otf') format('opentype');font-weight:100;font-style:normal;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-ThinItalic.otf') format('opentype');font-weight:100;font-style:italic;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-UltraLight.otf') format('opentype');font-weight:200;font-style:normal;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-UltraLightItalic.otf') format('opentype');font-weight:200;font-style:italic;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-Light.otf') format('opentype');font-weight:300;font-style:normal;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-LightItalic.otf') format('opentype');font-weight:300;font-style:italic;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-RegularItalic.otf') format('opentype');font-weight:400;font-style:italic;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-MediumItalic.otf') format('opentype');font-weight:500;font-style:italic;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-Bold.otf') format('opentype');font-weight:700;font-style:normal;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-BoldItalic.otf') format('opentype');font-weight:700;font-style:italic;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-ExtraBold.otf') format('opentype');font-weight:800;font-style:normal;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-ExtraBoldItalic.otf') format('opentype');font-weight:800;font-style:italic;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-Black.otf') format('opentype');font-weight:900;font-style:normal;font-display:swap}
+  @font-face{font-family:'Magallanes';src:url('fonts/Magallanes-BlackItalic.otf') format('opentype');font-weight:900;font-style:italic;font-display:swap}
+
+  :root{
+    /* Ink & teals — sampled directly from Blendr assets */
+    --ink:          #0F2226;  /* nearly-black deep ink, darkest wave */
+    --deep-teal:    #143338;  /* brand dominant dark */
+    --teal:         #1E4A50;  /* mid accent wave */
+    --slate-teal:   #5E8A8D;  /* muted blue-green, used on social tiles */
+    --sea:          #8BB6BA;  /* dusty sea */
+    --sky:          #B2D4DE;  /* primary aqua */
+    --foam:         #D4EBEE;  /* light foam */
+    --mist:         #E6F5F8;  /* page background, lightest */
+    --whisper:      #F3FAFB;
+    --paper:        #FFFFFF;
+
+    /* Type — Magallanes is the single family; weight & italics do the work */
+    --display:      'Magallanes', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+    --sans:         'Magallanes', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+    --script:       'Magallanes', system-ui, sans-serif;
+
+    --shadow-sm: 0 1px 2px rgba(15,34,38,.06), 0 1px 1px rgba(15,34,38,.04);
+    --shadow-md: 0 10px 30px -12px rgba(15,34,38,.18), 0 2px 6px rgba(15,34,38,.06);
+
+    --r-sm: 6px;
+    --r-md: 12px;
+    --r-lg: 20px;
+    --r-xl: 32px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family: var(--sans);
+    background: var(--mist);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  a{color:inherit}
+  img{display:block;max-width:100%}
+
+  /* Pipe separator — 2 weights lighter than surrounding text, muted color.
+     Inline default is Thin (100); overrides bump it where the base weight
+     is already heavy. Color is a desaturated sea-teal so it recedes. */
+  .pipe{
+    font-weight: 100;
+    color: #8BB6BA; /* Sky — muted vs ink */
+    margin: 0 .35em;
+    letter-spacing: 0;
+  }
+  /* When the surrounding text is 700, drop to 500 (2 steps down in the
+     common 100-increment scale). When surroundings are 500, drop to 300. */
+  .eyebrow .pipe{font-weight: 500;}
+  .tier-title h3 .pipe,
+  .role .pipe,
+  .logo-tile .label .pipe,
+  .app-card .label .pipe,
+  .wave-usage .card h4 .pipe,
+  .comp-card .body h3 .pipe{font-weight: 300;}
+  /* In <title> we can't style; that change is cosmetic only in tab bar. */
+
+  /* ——— Layout ——— */
+  .page{max-width: 1280px; margin: 0 auto; padding: 0 64px 120px;}
+  section{padding: 72px 0; border-top: 1px solid rgba(15,34,38,.08);}
+  section:first-of-type{border-top:0}
+  .sec-head{display:flex; align-items:flex-end; justify-content:space-between; gap:32px; margin-bottom: 36px;}
+  .eyebrow{
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+  h1,h2,h3,h4{font-family: var(--display); font-weight: 800; letter-spacing:-.01em; color: var(--ink); margin: 0;}
+  h2{font-size: 56px; line-height: .95;}
+  h3{font-size: 28px; line-height: 1.1; font-weight: 700;}
+  h4{font-size: 18px; font-weight: 700; letter-spacing: .02em;}
+  .sec-head h2{max-width: 540px;}
+  .sec-head p{max-width: 420px; margin: 0; color: #3a5a5e; font-size: 15px;}
+
+  /* ——— Hero ——— */
+  .hero{
+    position: relative;
+    margin: 24px 0 0;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    background: var(--deep-teal);
+    color: var(--foam);
+    min-height: 520px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding: 56px;
+    box-shadow: var(--shadow-md);
+  }
+  .hero::before{
+    content:""; position:absolute; inset:0;
+    background-image: url("assets/bg-dark-01.png");
+    background-size: cover; background-position: center;
+    opacity:.85;
+  }
+  .hero > *{position:relative; z-index:1}
+  .hero-top{display:flex; justify-content:space-between; align-items:center;}
+  .hero-logo{height:56px}
+  .hero-tag{
+    font-family: var(--sans); font-weight: 800;
+    letter-spacing:.28em; text-transform: uppercase;
+    color: var(--foam); font-size: 12px;
+    opacity:.9;
+  }
+  .hero-title{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 92px;
+    line-height: .92;
+    color: var(--foam);
+    letter-spacing: -0.02em;
+  }
+  .hero-title em{
+    font-style: italic; font-weight: 500; color: var(--sky); font-family: var(--display);
+  }
+  .hero-sub{
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 200;
+    font-size: 40px;
+    color: var(--sky);
+    margin-top: 8px;
+    letter-spacing: -.01em;
+  }
+  .hero-meta{
+    display:flex; gap: 40px; margin-top: 36px;
+    font-size: 13px; color: rgba(212,235,238,.75);
+    letter-spacing: .1em; text-transform: uppercase;
+  }
+  .hero-meta span b{display:block; color: var(--foam); font-weight:800; font-size: 14px; margin-top:4px; letter-spacing: .14em;}
+
+  /* ——— Brand Essence row ——— */
+  .essence{display:grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 24px;}
+  .essence .card{
+    background: var(--paper); border-radius: var(--r-lg); padding: 28px 28px 24px;
+    border: 1px solid rgba(15,34,38,.06);
+  }
+  .essence .card .eyebrow{color: var(--slate-teal);}
+  .essence .card h3{margin: 10px 0 10px; font-family: var(--display); font-style: italic; font-weight: 700; font-size: 26px;}
+  .essence .card p{margin:0; font-size: 14px; color: #3f5a5d; line-height: 1.55;}
+
+  /* ——— Color ——— */
+  .palette{display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px;}
+  .swatch{
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--paper);
+    border: 1px solid rgba(15,34,38,.06);
+    display:flex; flex-direction:column;
+  }
+  .swatch .chip{height: 110px}
+  .swatch .meta{padding: 12px 12px 14px;}
+  .swatch .name{font-size: 12px; font-weight: 800; letter-spacing:.14em; text-transform: uppercase; color: var(--ink);}
+  .swatch .hex{font-size: 11px; font-family: 'JetBrains Mono', ui-monospace, monospace; color: var(--slate-teal); margin-top: 4px;}
+  .swatch.small .chip{height: 72px}
+
+  .palette-tiers{display:grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 36px;}
+  .tier-title{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom: 1px solid rgba(15,34,38,.08);
+    padding-bottom: 12px; margin-bottom: 20px;
+  }
+  .tier-title h3{font-family: var(--display); font-weight: 800;}
+  .tier-title span{font-size: 12px; letter-spacing:.22em; text-transform: uppercase; color: var(--slate-teal); font-weight: 700;}
+
+  /* pairings */
+  .pairings{display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px;}
+  .pair{
+    border-radius: var(--r-md); overflow:hidden;
+    aspect-ratio: 4/3;
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--display); font-weight: 800; font-size: 34px;
+    letter-spacing: -.02em;
+    position: relative;
+  }
+  .pair small{
+    position:absolute; bottom:12px; left:14px;
+    font-family: var(--sans); font-weight:700; font-size:10px; letter-spacing:.2em;
+    text-transform: uppercase; opacity:.8;
+  }
+
+  /* ——— Typography ——— */
+  .type-hero{
+    background: var(--mist);
+    border-radius: var(--r-lg);
+    padding: 56px;
+    position:relative;
+    overflow:hidden;
+    border: 1px solid rgba(15,34,38,.06);
+  }
+  .type-hero .accent-word{
+    position:absolute;
+    bottom: 32px; left: 56px; right: 56px;
+    font-family: var(--display); font-weight: 900;
+    font-size: 220px; line-height: .9;
+    color: var(--sky);
+    letter-spacing:-.03em;
+    pointer-events:none; user-select:none;
+    opacity:.55;
+  }
+  .type-hero .stack{position:relative; z-index:1;}
+  .type-hero .subtitle{
+    font-family: var(--sans); font-weight: 800;
+    letter-spacing:.3em; text-transform: uppercase;
+    color: var(--slate-teal); font-size: 20px; margin-bottom: 8px;
+  }
+  .type-hero .heading{
+    font-family: var(--display); font-weight: 900;
+    font-size: 112px; line-height: .95; letter-spacing:-.02em;
+    color: var(--ink);
+  }
+  .type-hero .subheading{
+    font-family: var(--display); font-style: italic; font-weight: 300;
+    font-size: 56px; color: var(--ink); letter-spacing:-.01em;
+  }
+  .type-hero .body{
+    max-width: 720px; margin-top: 240px; position:relative; z-index: 2;
+    color: var(--ink); font-size: 15px; line-height: 1.7;
+  }
+
+  /* Dark variant */
+  .type-hero.dark{
+    background: var(--ink);
+    border: 1px solid rgba(212,235,238,.08);
+  }
+  .type-hero.dark::before{
+    content:""; position:absolute; inset:0;
+    background: url("assets/bg-dark-02.png") center/cover no-repeat;
+    opacity:.45; pointer-events:none;
+  }
+  .type-hero.dark .stack, .type-hero.dark .body{z-index:2;}
+  .type-hero.dark .accent-word{ color: var(--deep-teal); opacity:1; }
+  .type-hero.dark .subtitle{ color: var(--sea); }
+  .type-hero.dark .heading{ color: var(--foam); }
+  .type-hero.dark .subheading{ color: var(--sky); }
+  .type-hero.dark .body{ color: rgba(212,235,238,.78); }
+  .type-hero.dark .body em{ color: var(--sky); }
+
+  .type-specs{display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-top: 28px;}
+
+  /* Weight grid */
+  .weight-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    margin-top: 28px;
+  }
+  .wspec{
+    background: var(--paper); border: 1px solid rgba(15,34,38,.06); border-radius: var(--r-md);
+    padding: 18px 22px;
+    display: grid; grid-template-columns: 60px 1fr auto; align-items: center; gap: 18px;
+  }
+  .wspec .w-num{
+    font-family: var(--sans); font-weight: 700; font-size: 13px;
+    letter-spacing: .08em; color: var(--slate-teal);
+  }
+  .wspec .w-num span{color: var(--teal); margin-left: 1px;}
+  .wspec .w-name{
+    font-family: var(--sans); font-size: 12px; font-weight: 500;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ink);
+  }
+  .wspec .w-demo{
+    font-family: var(--display); font-size: 34px; letter-spacing:-.01em; color: var(--ink);
+  }
+  .wspec.italic{background: var(--foam); border-color: transparent;}
+  .spec{
+    background: var(--paper); border-radius: var(--r-lg); padding: 32px;
+    border: 1px solid rgba(15,34,38,.06);
+  }
+  .spec .role{
+    font-size: 11px; letter-spacing:.22em; text-transform: uppercase;
+    color: var(--slate-teal); font-weight:800; margin-bottom: 10px;
+  }
+  .spec .fam{font-family: var(--display); font-weight: 800; font-size: 34px; letter-spacing:-.01em;}
+  .spec .fam.sans{font-family: var(--sans); font-weight: 500;}
+  .spec .fam.script{font-family: var(--script); font-weight: 300; font-style: italic; font-size: 40px;}
+  .spec .usage{font-size: 13px; color:#3f5a5d; margin-top: 14px; line-height: 1.55;}
+  .spec .scale{display:flex; flex-direction:column; gap:4px; margin-top: 18px; border-top: 1px dashed rgba(15,34,38,.14); padding-top: 14px;}
+  .spec .scale div{display:flex; justify-content:space-between; font-size:12px; font-family:ui-monospace,monospace; color:#5e7a7d;}
+
+  .scale-row{
+    background: var(--paper); border-radius: var(--r-lg); padding: 32px; margin-top: 24px;
+    border: 1px solid rgba(15,34,38,.06);
+  }
+  .scale-line{
+    display:grid; grid-template-columns: 80px 120px 1fr; align-items:baseline;
+    gap: 24px; padding: 14px 0; border-top: 1px solid rgba(15,34,38,.06);
+  }
+  .scale-line:first-child{border-top: none}
+  .scale-line .tok{font-family: ui-monospace,monospace; font-size: 12px; color: var(--slate-teal); letter-spacing:.08em;}
+  .scale-line .meta{font-size: 12px; color: #5e7a7d;}
+  .scale-line .demo{color: var(--ink);}
+  .scale-line.display .demo{font-family: var(--display); font-weight: 800; letter-spacing:-.01em;}
+  .scale-line.sans .demo{font-family: var(--sans);}
+
+  /* ——— Logo ——— */
+  .logo-grid{display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 18px;}
+  .logo-tile{
+    border-radius: var(--r-lg); height: 260px;
+    display:flex; align-items:center; justify-content:center;
+    border: 1px solid rgba(15,34,38,.06);
+    overflow: hidden; position: relative;
+  }
+  .logo-tile img{max-width:70%; max-height: 56%}
+  .logo-tile.bg-paper{background: var(--paper)}
+  .logo-tile.bg-mist{background: var(--mist)}
+  .logo-tile.bg-sky{background: var(--sky)}
+  .logo-tile.bg-teal{background: var(--deep-teal)}
+  .logo-tile.bg-ink{background: var(--ink)}
+  .logo-tile .label{
+    position:absolute; top: 14px; left: 16px; font-size: 10px;
+    font-weight: 800; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--slate-teal);
+  }
+  .logo-tile.bg-teal .label, .logo-tile.bg-ink .label{color: rgba(212,235,238,.55)}
+
+  .logo-anatomy{
+    margin-top: 24px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px;
+  }
+  .anatomy-card, .clear-card{
+    background: var(--paper); border-radius: var(--r-lg); border: 1px solid rgba(15,34,38,.06);
+    padding: 32px;
+  }
+  .anatomy-card{position:relative; overflow:hidden}
+  .anatomy-card .logo-mark{position:relative; padding: 40px 20px; display:flex; justify-content:center;}
+  .anatomy-card img{max-width: 90%;}
+  .anatomy-note{
+    position:absolute; font-size:11px; font-weight:700; letter-spacing:.18em;
+    text-transform: uppercase; color: var(--slate-teal);
+  }
+  .anno{display:flex; align-items:center; gap:8px; margin-top:16px; font-size:12px; color:#3f5a5d;}
+  .anno .dot{width:10px; height:10px; border-radius:50%; background: var(--teal)}
+  .dont-list{display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px;}
+  .dont{
+    background: var(--paper); border-radius: var(--r-md); padding: 18px;
+    border: 1px solid rgba(15,34,38,.06);
+    display: grid; grid-template-columns: 60px 1fr; gap: 16px; align-items: center;
+  }
+  .dont .mark{
+    width: 52px; height: 52px; border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    background: #FCEBEA; color: #B23A3A;
+    font-family: var(--display); font-weight: 900; font-size: 28px;
+  }
+  .dont.ok .mark{background: #E4F3EC; color: #2E7E5E;}
+  .dont h4{margin:0 0 2px; font-family: var(--sans); font-weight: 800; font-size: 13px;}
+  .dont p{margin:0; font-size: 12px; color: #5e7a7d;}
+
+  /* ——— Patterns ——— */
+  .pattern-grid{display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px;}
+  .pattern-grid .ptile{
+    border-radius: var(--r-md); overflow:hidden; aspect-ratio: 1/1; border: 1px solid rgba(15,34,38,.06);
+    background: var(--mist);
+  }
+  .pattern-grid .ptile img{width:100%; height:100%; object-fit: cover;}
+  .pattern-hero{
+    display:grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 14px; margin-bottom: 14px;
+  }
+  .pattern-hero > div{border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 16/10;}
+  .pattern-hero img{width:100%; height:100%; object-fit: cover;}
+
+  .wave-usage{
+    display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 32px;
+  }
+  .wave-usage .card{
+    background: var(--paper); border-radius: var(--r-lg); border: 1px solid rgba(15,34,38,.06);
+    overflow: hidden;
+  }
+  .wave-usage .card .img{aspect-ratio: 4/3; background: var(--mist);}
+  .wave-usage .card .img img{width:100%; height:100%; object-fit: cover;}
+  .wave-usage .card .copy{padding: 18px 20px;}
+  .wave-usage .card h4{margin:0 0 4px; font-family: var(--sans); font-weight: 800;}
+  .wave-usage .card p{margin:0; font-size: 13px; color:#3f5a5d}
+
+  /* ——— Coded Waves showcase ——— */
+  .waves-lab{
+    margin-top: 40px; padding: 36px; background: var(--paper);
+    border-radius: var(--r-lg); border: 1px solid rgba(15,34,38,.06);
+  }
+  .waves-lab .lab-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap: 24px; margin-bottom: 24px;
+  }
+  .waves-lab .lab-head h3{
+    margin:0; font-family: var(--display); font-weight: 900; font-size: 32px; letter-spacing:-.01em; color: var(--ink);
+  }
+  .waves-lab .lab-head .kicker{
+    font-family: var(--sans); font-weight: 800; letter-spacing:.22em; text-transform: uppercase;
+    color: var(--slate-teal); font-size: 11px; margin-bottom: 6px;
+  }
+  .waves-lab .lab-head p{margin:0; max-width: 420px; color:#3a5a5e; font-size: 14px; line-height: 1.55;}
+  .wave-grid{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px;}
+  .wave-card{
+    position: relative; border-radius: var(--r-md); overflow:hidden;
+    aspect-ratio: 16/10; background: var(--mist);
+  }
+  .wave-card .meta{
+    position: absolute; top: 12px; left: 14px; right: 14px; display:flex; justify-content:space-between;
+    font-family: var(--mono); font-size: 10px; letter-spacing:.12em; text-transform: uppercase; font-weight:700;
+    color: var(--ink); mix-blend-mode: difference; color:#ffffff; z-index: 2;
+  }
+  .wave-card.on-dark .meta{color:#D4EBEE; mix-blend-mode: normal;}
+  .wave-card blendr-wave{display:block; width:100%; height:100%;}
+
+  .wave-hero{
+    position:relative; border-radius: var(--r-lg); overflow:hidden;
+    aspect-ratio: 21/7; margin-bottom: 14px; background: var(--ink);
+  }
+  .wave-hero .overlay{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between;
+    padding: 32px 44px; z-index: 2; color: var(--foam);
+  }
+  .wave-hero .overlay .t{
+    font-family: var(--display); font-weight: 900; font-size: 42px; line-height:1; letter-spacing:-.01em;
+  }
+  .wave-hero .overlay .t em{font-style: italic; font-weight: 300; color: var(--sky);}
+  .wave-hero .overlay .tag{
+    font-family: var(--mono); font-size: 10px; letter-spacing:.2em; text-transform: uppercase; opacity:.8;
+  }
+
+  .wave-api{
+    margin-top: 20px; padding: 18px 20px;
+    background: var(--ink); color: #D4EBEE;
+    border-radius: var(--r-sm); font-family: var(--mono); font-size: 12px; line-height: 1.7;
+    overflow-x: auto;
+  }
+  .wave-api .k{color: #8BB6BA}
+  .wave-api .s{color: #D4EBEE}
+  .wave-api .c{color: #5E8A8D}
+
+  /* ——— Components ——— */
+  .comp-grid{display:grid; grid-template-columns: 1.3fr 1fr; gap: 24px;}
+  .comp-card{
+    background: var(--paper); border-radius: var(--r-lg);
+    border: 1px solid rgba(15,34,38,.06); padding: 32px;
+  }
+  .comp-card h4{margin-bottom: 18px; font-family: var(--sans); font-weight: 800;}
+  .btn-row{display:flex; gap: 12px; flex-wrap: wrap; align-items:center;}
+  .btn{
+    font-family: var(--sans); font-weight: 800; font-size: 14px;
+    padding: 14px 22px; border-radius: 999px; border: 2px solid transparent;
+    letter-spacing: .04em; cursor: pointer; transition: .2s;
+  }
+  .btn.primary{background: var(--deep-teal); color: var(--foam);}
+  .btn.primary:hover{background: var(--ink)}
+  .btn.secondary{background: var(--sky); color: var(--ink);}
+  .btn.ghost{background: transparent; color: var(--deep-teal); border-color: var(--deep-teal);}
+  .btn.text{background: transparent; color: var(--deep-teal); padding: 14px 4px;}
+  .btn.text::after{content:" →"; transition:.2s;}
+  .btn.text:hover::after{margin-left:4px}
+  .btn.sm{padding: 9px 16px; font-size: 12px;}
+
+  .tags{display:flex; gap:8px; flex-wrap:wrap; margin-top: 20px;}
+  .tag{
+    font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px;
+    background: var(--foam); color: var(--teal);
+  }
+  .tag.ink{background: var(--ink); color: var(--foam);}
+  .tag.sky{background: var(--sky); color: var(--ink);}
+
+  .card-preview{
+    border-radius: var(--r-lg); overflow: hidden;
+    background: var(--paper); border: 1px solid rgba(15,34,38,.06);
+    display: flex; flex-direction: column;
+  }
+  .card-preview .thumb{
+    height: 180px; background: var(--deep-teal) url("assets/bg-dark-02.png") center/cover;
+    display:flex; align-items:flex-end; padding: 20px;
+  }
+  .card-preview .thumb .tag{background: rgba(212,235,238,.18); color: var(--foam); backdrop-filter: blur(6px);}
+  .card-preview .body{padding: 20px;}
+  .card-preview .role{font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--slate-teal); font-weight: 800;}
+  .card-preview h3{font-family: var(--display); font-weight: 800; font-size: 22px; line-height: 1.2; margin: 6px 0 10px;}
+  .card-preview p{margin: 0 0 16px; font-size: 13px; color: #3f5a5d;}
+
+  .input-row{display:flex; flex-direction:column; gap:14px;}
+  .input-row label{font-size: 12px; font-weight: 700; letter-spacing:.1em; text-transform: uppercase; color: var(--slate-teal)}
+  .input{
+    background: var(--mist); border: 1.5px solid transparent; border-radius: var(--r-md);
+    padding: 14px 16px; font-family: inherit; font-size: 14px; color: var(--ink);
+    outline: none; transition: .2s;
+  }
+  .input:focus{border-color: var(--teal); background: var(--paper)}
+  .input::placeholder{color: var(--slate-teal)}
+
+  .social-row{display:flex; gap:12px; margin-top: 8px;}
+  .social-icon{
+    width: 52px; height: 52px; border-radius: var(--r-md);
+    background: var(--slate-teal); color: var(--paper);
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ——— Applications ——— */
+  .apps{display:grid; grid-template-columns: 1fr 1fr; gap: 24px;}
+  .app-card{
+    background: var(--paper); border-radius: var(--r-lg);
+    border: 1px solid rgba(15,34,38,.06); padding: 32px; overflow: hidden;
+  }
+  .app-card.tall{grid-row: span 2}
+  .app-card .label{font-size:11px; letter-spacing:.22em; text-transform: uppercase; color: var(--slate-teal); font-weight: 800; margin-bottom: 12px;}
+  .app-card h3{font-family: var(--display); font-weight: 800; margin-bottom: 18px; font-size: 22px;}
+
+  /* Biz card */
+  .bizcard{
+    aspect-ratio: 1.75/1;
+    border-radius: var(--r-md);
+    background: var(--deep-teal) url("assets/bg-dark-01.png") center/cover;
+    color: var(--foam);
+    padding: 28px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: var(--shadow-md);
+  }
+  .bizcard .top img{filter: brightness(0) invert(1);}
+  .bizcard .top img{height: 40px}
+  .bizcard .bot .name{font-family: var(--display); font-weight: 900; font-size: 26px; letter-spacing:-.01em;}
+  .bizcard .bot .role{font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--sky); margin-top: 4px;}
+  .bizcard .bot .contact{font-size: 11px; margin-top: 14px; opacity: .85; line-height: 1.6;}
+
+  /* Email sig */
+  .emailsig{
+    background: var(--paper); border-radius: var(--r-md); padding: 24px;
+    border: 1px solid rgba(15,34,38,.06);
+  }
+  .emailsig .name{font-family: var(--display); font-weight: 900; font-size: 28px;}
+  .emailsig .role{font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--teal); font-weight: 800; margin: 4px 0 14px;}
+  .emailsig .lines{font-size: 12px; color: #3f5a5d; line-height: 1.7;}
+  .emailsig .lines a{color: var(--teal); font-weight: 800; text-decoration: none;}
+  .emailsig .socials{display:flex; gap: 8px; margin: 14px 0;}
+  .emailsig .socials .s{width: 32px; height: 32px; border-radius: 8px; background: var(--slate-teal); display:flex; align-items:center; justify-content:center; color:var(--paper); font-size:12px; font-weight:900;}
+  .emailsig .banner{
+    margin-top: 14px;
+    background: var(--deep-teal) url("assets/bg-dark-02.png") center/cover;
+    border-radius: var(--r-sm);
+    color: var(--foam);
+    padding: 28px 24px;
+    position: relative;
+  }
+  .emailsig .banner .big{font-family: var(--display); font-weight: 900; font-size: 26px; line-height: 1.1;}
+  .emailsig .banner .big em{color: var(--sky); font-style: italic; font-weight: 300;}
+  .emailsig .banner img{position:absolute; right: 18px; bottom: 14px; height: 34px;}
+
+  /* Social square */
+  .social-grid{display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;}
+  .social-grid .sq{aspect-ratio: 1/1; border-radius: var(--r-md); overflow: hidden; border: 1px solid rgba(15,34,38,.06);}
+  .social-grid .sq img{width:100%; height:100%; object-fit: cover;}
+
+  /* Voice */
+  .voice-grid{display:grid; grid-template-columns: 1fr 1fr; gap: 18px;}
+  .voice{
+    background: var(--paper); border-radius: var(--r-lg); padding: 28px;
+    border: 1px solid rgba(15,34,38,.06);
+  }
+  .voice .label{
+    font-size: 11px; letter-spacing:.22em; text-transform: uppercase; font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .voice.do .label{color: #2E7E5E;}
+  .voice.dont .label{color: #B23A3A;}
+  .voice blockquote{
+    margin: 0; font-family: var(--display); font-weight: 500; font-style: italic;
+    font-size: 22px; line-height: 1.35; color: var(--ink); letter-spacing:-.005em;
+  }
+  .voice.dont blockquote{color: #8e9a9c; text-decoration: line-through; text-decoration-color: rgba(178,58,58,.35); font-style: normal; font-family: var(--sans); font-weight: 500;}
+
+  /* ——— Cover strip / footer ——— */
+  .ds-footer{
+    margin-top: 80px;
+    background: var(--deep-teal) url("assets/bg-dark-01.png") center/cover;
+    border-radius: var(--r-xl);
+    padding: 64px;
+    color: var(--foam);
+    display:flex; justify-content: space-between; align-items: flex-end;
+    gap: 40px;
+  }
+  .ds-footer h2{color: var(--foam); max-width: 600px;}
+  .ds-footer h2 em{font-style: italic; font-weight: 300; color: var(--sky);}
+  .ds-footer .right{font-size: 12px; letter-spacing: .2em; text-transform: uppercase; text-align: right; opacity: .75;}
+  .ds-footer .right b{display:block; color: var(--foam); font-size: 14px; letter-spacing: .16em; margin-bottom: 6px; opacity: 1;}
+
+  /* small utility */
+  .grid-2{display:grid; grid-template-columns: 1fr 1fr; gap:24px;}
+  .grid-3{display:grid; grid-template-columns: 1fr 1fr 1fr; gap:24px;}
+
+</style>
+<script src="assets/waves.js?v=7" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <!-- ────────────── HERO ────────────── -->
+  <header class="hero">
+    <div class="hero-top">
+      <img class="hero-logo" src="assets/blendr-logo-light.svg?v=3" alt="Blendr">
+      <div class="hero-tag">Design System · v1.0 · April 2026</div>
+    </div>
+    <div>
+      <div class="hero-sub">A brand that flows.</div>
+      <div class="hero-title">Strategy led design <em>for</em><br>fast moving companies.</div>
+      <div class="hero-meta">
+        <span>Origin<b>Kralendijk, Bonaire</b></span>
+        <span>Practice<b>Branding & Design</b></span>
+        <span>Tone<b>Editorial · Coastal · Considered</b></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Brand essence -->
+  <div class="essence">
+    <div class="card">
+      <div class="eyebrow">Mood</div>
+      <h3>Calm, confident, coastal.</h3>
+      <p>Blendr sits at a harbor between editorial craft and modern studio polish. Deep tealwater ink with foam-bright highlights. Sophisticated without being stiff.</p>
+    </div>
+    <div class="card">
+      <div class="eyebrow">Signature</div>
+      <h3>Waves as a system, not a motif.</h3>
+      <p>A library of stacked wave forms is the brand's visual backbone. Use them as framing, background, rhythm, and transition, never as decoration.</p>
+    </div>
+    <div class="card">
+      <div class="eyebrow">Typography</div>
+      <h3>One family. Full range.</h3>
+      <p>Magallanes is the entire Blendr voice: a humanist geometric sans with soft, rounded terminals. Thin whispers, Black commands. One family carries every register.</p>
+    </div>
+  </div>
+
+  <!-- ────────────── COLOR ────────────── -->
+  <section id="color">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">01 <span class="pipe">|</span> Color</div>
+        <h2>Deep ink,<br>bright foam.</h2>
+      </div>
+      <p>The palette is a gradient of seawater: near-black ink at the bottom, through mid-teals and dusty sea, up to a pale mist. Every application should read as one of these tiers, no invented in-betweens.</p>
+    </div>
+
+    <div class="palette-tiers">
+      <div>
+        <div class="tier-title"><h3>Core <span class="pipe">|</span> Ink & Teal</h3><span>80% of surface</span></div>
+        <div class="palette">
+          <div class="swatch"><div class="chip" style="background:var(--ink)"></div>
+            <div class="meta"><div class="name">Ink</div><div class="hex">#0F2226</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--deep-teal)"></div>
+            <div class="meta"><div class="name">Deep&nbsp;Teal</div><div class="hex">#143338</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--teal)"></div>
+            <div class="meta"><div class="name">Teal</div><div class="hex">#1E4A50</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--slate-teal)"></div>
+            <div class="meta"><div class="name">Slate&nbsp;Teal</div><div class="hex">#5E8A8D</div></div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="tier-title"><h3>Light <span class="pipe">|</span> Sea, Sky & Foam</h3><span>20% <span class="pipe">|</span> highlights</span></div>
+        <div class="palette">
+          <div class="swatch"><div class="chip" style="background:var(--sea)"></div>
+            <div class="meta"><div class="name">Sea</div><div class="hex">#8BB6BA</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--sky)"></div>
+            <div class="meta"><div class="name">Sky</div><div class="hex">#B2D4DE</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--foam)"></div>
+            <div class="meta"><div class="name">Foam</div><div class="hex">#D4EBEE</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--mist); border:1px solid rgba(15,34,38,.08)"></div>
+            <div class="meta"><div class="name">Mist</div><div class="hex">#E6F5F8</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pairings -->
+    <h3 style="margin-top:56px; margin-bottom:4px">Signature pairings</h3>
+    <p style="margin:0; color:#3f5a5d; font-size:14px;">Four combinations carry almost every Blendr surface. Start with one of these before deviating.</p>
+    <div class="pairings">
+      <div class="pair" style="background:var(--deep-teal); color:var(--foam)">Aa
+        <small>Deep Teal + Foam</small>
+      </div>
+      <div class="pair" style="background:var(--mist); color:var(--ink)">Aa
+        <small>Mist + Ink</small>
+      </div>
+      <div class="pair" style="background:var(--sky); color:var(--ink)">Aa
+        <small>Sky + Ink</small>
+      </div>
+      <div class="pair" style="background:var(--ink); color:var(--sky)">Aa
+        <small>Ink + Sky</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────── TYPOGRAPHY ────────────── -->
+  <section id="type">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">02 <span class="pipe">|</span> Typography</div>
+        <h2>One family.<br>Nine weights.</h2>
+      </div>
+      <p>Magallanes is the entire Blendr typography system: a humanist geometric sans with soft, rounded terminals that echo the wave mark. Weight and italics do all the expressive work; no secondary families.</p>
+    </div>
+
+    <!-- Type showcase mimicking the Blendr "Heading / Sub Heading / Accent" layout -->
+    <div class="type-hero">
+      <div class="accent-word">Accent</div>
+      <div class="stack">
+        <div class="subtitle">Subtitle</div>
+        <div class="heading">Heading</div>
+        <div class="subheading">Sub Heading</div>
+      </div>
+      <div class="body">
+        Blendr is strategy-led branding for fast-moving companies: studios, startups and
+        challenger brands built around clarity and craft. The type system is a single voice,
+        <em>Magallanes</em>, ranging from a whispering Thin at 100 to a commanding Black at 900.
+        Italics soften the tone; heavy weights do the shouting. Keep copy short, confident,
+        and rhythmic.
+      </div>
+    </div>
+
+    <!-- Dark companion -->
+    <div class="type-hero dark" style="margin-top:18px">
+      <div class="accent-word">Accent</div>
+      <div class="stack">
+        <div class="subtitle">Subtitle</div>
+        <div class="heading">Heading</div>
+        <div class="subheading">Sub Heading</div>
+      </div>
+      <div class="body">
+        On dark, type leans into the palette's contrast range. <em>Foam</em> carries headlines,
+        <em>Sky</em> softens italic supports, and <em>Sea</em> labels signal structure. Use the
+        dark setting for covers, section transitions, and moments that need quiet intensity.
+        The same voice, just after hours.
+      </div>
+    </div>
+
+    <!-- Weight specimen row -->
+    <div class="weight-grid">
+      <div class="wspec"><div class="w-num">100</div><div class="w-name">Thin</div><div class="w-demo" style="font-weight:100">Blendr</div></div>
+      <div class="wspec"><div class="w-num">200</div><div class="w-name">Ultra Light</div><div class="w-demo" style="font-weight:200">Blendr</div></div>
+      <div class="wspec"><div class="w-num">300</div><div class="w-name">Light</div><div class="w-demo" style="font-weight:300">Blendr</div></div>
+      <div class="wspec"><div class="w-num">400</div><div class="w-name">Regular</div><div class="w-demo" style="font-weight:400">Blendr</div></div>
+      <div class="wspec"><div class="w-num">500</div><div class="w-name">Medium</div><div class="w-demo" style="font-weight:500">Blendr</div></div>
+      <div class="wspec"><div class="w-num">700</div><div class="w-name">Bold</div><div class="w-demo" style="font-weight:700">Blendr</div></div>
+      <div class="wspec"><div class="w-num">800</div><div class="w-name">Extra Bold</div><div class="w-demo" style="font-weight:800">Blendr</div></div>
+      <div class="wspec"><div class="w-num">900</div><div class="w-name">Black</div><div class="w-demo" style="font-weight:900">Blendr</div></div>
+      <div class="wspec italic"><div class="w-num">400<span>i</span></div><div class="w-name">Regular Italic</div><div class="w-demo" style="font-weight:400; font-style:italic">Blendr</div></div>
+    </div>
+
+    <div class="type-specs">
+      <div class="spec">
+        <div class="role">Display <span class="pipe">|</span> Magallanes Black / Extra Bold</div>
+        <div class="fam" style="font-weight:900">Hero. Headline.</div>
+        <div class="usage">Editorial hero type, covers, key moments. 800–900 weight for impact. Tight tracking (−0.01em to −0.02em). Pair with italics of the same weight for supporting lines.</div>
+        <div class="scale">
+          <div><span>Display XL</span><span>112 / 95 · 900</span></div>
+          <div><span>Display L</span><span>72 / 92 · 800</span></div>
+          <div><span>Display M</span><span>48 / 100 · 800</span></div>
+          <div><span>Italic Sub</span><span>32 / 110 · 500 i</span></div>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="role">Text <span class="pipe">|</span> Magallanes Regular / Medium</div>
+        <div class="fam sans" style="font-weight:500">Body. Labels. UI.</div>
+        <div class="usage">Body copy at 400; UI labels and CTAs at 500–700. All-caps labels use 700 with wide tracking (.22em). Never below 12px on screen.</div>
+        <div class="scale">
+          <div><span>Body L</span><span>18 / 160 · 400</span></div>
+          <div><span>Body M</span><span>15 / 155 · 400</span></div>
+          <div><span>Label</span><span>12 / 100 · 700 · +.22em</span></div>
+          <div><span>Caption</span><span>11 / 140 · 500</span></div>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="role">Accent <span class="pipe">|</span> Magallanes Thin / Light Italic</div>
+        <div class="fam script" style="font-weight:200; font-style:italic">A quiet whisper</div>
+        <div class="usage">Editorial eyebrows, pull-quotes, friendly asides. Use 100–300 italic in Sky or Sea for a light, human register. Never in body paragraphs.</div>
+        <div class="scale">
+          <div><span>Accent L</span><span>48 · 200 i</span></div>
+          <div><span>Accent M</span><span>32 · 300 i</span></div>
+          <div><span>Accent S</span><span>22 · 300 i</span></div>
+          <div><span>Color</span><span>Sky or Sea only</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Compact scale -->
+    <div class="scale-row">
+      <div class="scale-line display"><span class="tok">--display-xl</span><span class="meta">112 / 900 / -.02</span><span class="demo" style="font-size:56px; font-weight:900">Strategy led design</span></div>
+      <div class="scale-line display"><span class="tok">--display-l</span><span class="meta">72 / 500 italic</span><span class="demo" style="font-size:40px; font-weight:500; font-style:italic">for fast moving companies</span></div>
+      <div class="scale-line display"><span class="tok">--display-m</span><span class="meta">48 / 300 italic</span><span class="demo" style="font-size:28px; font-style:italic; font-weight:300">Dia di Boneiru</span></div>
+      <div class="scale-line sans"><span class="tok">--body-l</span><span class="meta">18 / 400 / 1.6</span><span class="demo" style="font-size:17px; font-weight:400">Blendr is a branding practice based in Bonaire.</span></div>
+      <div class="scale-line sans"><span class="tok">--label</span><span class="meta">12 / 700 / .22em</span><span class="demo" style="font-size:12px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--teal)">Case Study · 2024</span></div>
+    </div>
+  </section>
+
+  <!-- ────────────── LOGO ────────────── -->
+  <section id="logo">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">03 <span class="pipe">|</span> Logo</div>
+        <h2>The Blendr mark.</h2>
+      </div>
+      <p>A custom display-weight wordmark with a signature tidal 'E'. The curved tail of the N carries the wave through the letterform, a quiet echo of the brand's coastal origin.</p>
+    </div>
+
+    <div class="logo-grid">
+      <div class="logo-tile bg-paper">
+        <span class="label">Primary · on Paper</span>
+        <img src="assets/blendr-logo-dark.svg?v=3" alt="Blendr on white">
+      </div>
+      <div class="logo-tile bg-mist">
+        <span class="label">on Mist</span>
+        <img src="assets/blendr-logo-dark.svg?v=3" alt="">
+      </div>
+      <div class="logo-tile bg-sky">
+        <span class="label">on Sky</span>
+        <img src="assets/blendr-logo-dark.svg?v=3" alt="">
+      </div>
+      <div class="logo-tile bg-teal">
+        <span class="label">Reversed · on Deep Teal</span>
+        <img src="assets/blendr-logo-light.svg?v=3" alt="">
+      </div>
+      <div class="logo-tile bg-ink">
+        <span class="label">on Ink</span>
+        <img src="assets/blendr-logo-light.svg?v=3" alt="">
+      </div>
+      <div class="logo-tile bg-paper">
+        <span class="label">Stacked Secondary</span>
+        <img src="assets/blendr-logo-dark.svg?v=3" style="max-width:55%" alt="">
+      </div>
+      <div class="logo-tile bg-mist">
+        <span class="label">Small Use <span class="pipe">|</span> 24px min</span>
+        <img src="assets/blendr-logo-dark.svg?v=3" style="max-width:40%" alt="">
+      </div>
+    </div>
+
+    <div class="logo-anatomy">
+      <div class="anatomy-card">
+        <div class="label" style="font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--slate-teal); font-weight:800; margin-bottom:20px;">Anatomy · Clear space</div>
+        <div class="logo-mark" style="outline:1px dashed rgba(15,34,38,.2); border-radius:16px">
+          <img src="assets/blendr-logo-dark.svg?v=3" alt="Blendr">
+        </div>
+        <div class="anno"><span class="dot"></span> Clear space = height of the "B" in BLENDR on all sides.</div>
+        <div class="anno"><span class="dot"></span> Never re-kern, re-stack, or modify the tail of the N.</div>
+        <div class="anno"><span class="dot"></span> Minimum digital size: 96px wide (lockup), 24px (mark only).</div>
+      </div>
+      <div class="clear-card">
+        <div class="label" style="font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--slate-teal); font-weight:800; margin-bottom:20px;">Lockups</div>
+        <div style="display:flex; flex-direction:column; gap:22px;">
+          <div style="display:flex; align-items:center; gap:20px;">
+            <img src="assets/blendr-logo-dark.svg?v=3" style="height:36px" alt="">
+            <div style="font-size:12px; color:#5e7a7d">Horizontal <span class="pipe">|</span> default for web &amp; header</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:20px; padding: 16px; background: var(--deep-teal); border-radius: 12px;">
+            <img src="assets/blendr-logo-light.svg?v=3" style="height:32px" alt="">
+            <div style="font-size:12px; color: var(--foam); opacity:.8">Reversed <span class="pipe">|</span> for dark surfaces</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:20px;">
+            <img src="assets/blendr-logo-dark.svg?v=3" style="height:24px" alt="">
+            <div style="font-size:12px; color:#5e7a7d">Compact <span class="pipe">|</span> 24px · minimum before swapping to mark</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dos and don'ts -->
+    <div class="dont-list">
+      <div class="dont ok">
+        <div class="mark">✓</div>
+        <div>
+          <h4>Do keep proportions fixed</h4>
+          <p>Scale uniformly; preserve the wave tail on the N.</p>
+        </div>
+      </div>
+      <div class="dont ok">
+        <div class="mark">✓</div>
+        <div>
+          <h4>Do use on approved palette</h4>
+          <p>Ink, Foam, Sky, Paper. Always check contrast on imagery.</p>
+        </div>
+      </div>
+      <div class="dont">
+        <div class="mark">✕</div>
+        <div>
+          <h4>Don't outline or emboss</h4>
+          <p>The mark is a solid fill, no strokes or shadows.</p>
+        </div>
+      </div>
+      <div class="dont">
+        <div class="mark">✕</div>
+        <div>
+          <h4>Don't tint or gradient</h4>
+          <p>Solid brand colors only. No gradients on the wordmark.</p>
+        </div>
+      </div>
+      <div class="dont">
+        <div class="mark">✕</div>
+        <div>
+          <h4>Don't place on busy imagery</h4>
+          <p>Use a brand background or a solid panel behind it.</p>
+        </div>
+      </div>
+      <div class="dont">
+        <div class="mark">✕</div>
+        <div>
+          <h4>Don't re-stack the wordmark</h4>
+          <p>BLENDR stays horizontal. "Branding &amp; Design" always sits beneath.</p>
+        </div>
+      </div>
+      <div class="dont">
+        <div class="mark">✕</div>
+        <div>
+          <h4>Don't pair dark on dark</h4>
+          <p>Never place the Ink/Deep Teal wordmark on a dark surface. Use the reversed Foam mark instead. And never put the light mark on Paper/Mist.</p>
+        </div>
+      </div>
+      <div class="dont">
+        <div class="mark">✕</div>
+        <div>
+          <h4>Don't rely on low contrast</h4>
+          <p>The wordmark must always clear at least a 4.5:1 contrast ratio against its background.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────── PATTERNS / WAVES ────────────── -->
+  <section id="patterns">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">04 <span class="pipe">|</span> Waves &amp; Patterns</div>
+        <h2>Waves carry<br>the composition.</h2>
+      </div>
+      <p>The Blendr wave library ranges from quiet single-arc marks to dense stacked compositions. Choose by volume: busy content needs quiet waves; clean content can carry a bold one.</p>
+    </div>
+
+    <div class="pattern-hero">
+      <div><img src="assets/bg-light-hero.png" alt="Light wave hero"></div>
+      <div><img src="assets/bg-dark-01.png" alt="Dark wave composition"></div>
+      <div><img src="assets/bg-dark-02.png" alt="Dark wave mid"></div>
+    </div>
+
+    <div class="pattern-grid">
+      <div class="ptile"><img src="assets/bg-light-02.png" alt=""></div>
+      <div class="ptile"><img src="assets/bg-light-03.png" alt=""></div>
+      <div class="ptile"><img src="assets/bg-light-04.png" alt=""></div>
+      <div class="ptile"><img src="assets/pattern-04.png" alt=""></div>
+      <div class="ptile"><img src="assets/pattern-05.png" alt=""></div>
+      <div class="ptile"><img src="assets/pattern-02.png" alt=""></div>
+      <div class="ptile"><img src="assets/pattern-03.png" alt=""></div>
+      <div class="ptile"><img src="assets/pattern-01.png" alt=""></div>
+    </div>
+
+    <div class="wave-usage">
+      <div class="card">
+        <div class="img"><img src="assets/bg-light-hero.png" alt=""></div>
+        <div class="copy"><h4>Stacked <span class="pipe">|</span> Hero</h4><p>Three-layer composition for covers, headers, and key moments. High visual weight.</p></div>
+      </div>
+      <div class="card">
+        <div class="img"><img src="assets/pattern-05.png" alt=""></div>
+        <div class="copy"><h4>Ribbon <span class="pipe">|</span> Quiet</h4><p>Single curved ribbon. Use behind long-form content and editorial layouts.</p></div>
+      </div>
+      <div class="card">
+        <div class="img"><img src="assets/pattern-01.png" alt=""></div>
+        <div class="copy"><h4>Frame <span class="pipe">|</span> Bracketing</h4><p>Top and bottom waves frame a central canvas. Great for text-heavy slides.</p></div>
+      </div>
+    </div>
+
+    <!-- Coded waves: standalone SVG component -->
+    <div class="waves-lab">
+      <div class="lab-head">
+        <div>
+          <div class="kicker">Waves · as code</div>
+          <h3>A reusable wave system.</h3>
+        </div>
+        <p>The library ships as a single script, <code>assets/waves.js</code>, exposing an SVG generator, a <code>&lt;blendr-wave&gt;</code> web component, and palette tokens. Use it to animate covers, theme slides on the fly, or carry the brand into new surfaces.</p>
+      </div>
+
+      <!-- Animated hero ribbon -->
+      <div class="wave-hero">
+        <blendr-wave variant="stacked" palette="dark" animated speed="22" amplitude="1.1" style="position:absolute;inset:0;"></blendr-wave>
+        <div class="overlay">
+          <div class="t">Waves<br><em>in motion.</em></div>
+          <div class="tag">&lt;blendr-wave animated&gt;</div>
+        </div>
+      </div>
+
+      <!-- Variant grid -->
+      <div class="wave-grid">
+        <div class="wave-card"><div class="meta"><span>variant</span><span>ribbon · light</span></div><blendr-wave variant="ribbon" palette="light"></blendr-wave></div>
+        <div class="wave-card"><div class="meta"><span>variant</span><span>stacked · mist</span></div><blendr-wave variant="stacked" palette="mist"></blendr-wave></div>
+        <div class="wave-card"><div class="meta"><span>variant</span><span>arc · light</span></div><blendr-wave variant="arc" palette="light"></blendr-wave></div>
+        <div class="wave-card on-dark"><div class="meta"><span>variant</span><span>duet · dark</span></div><blendr-wave variant="duet" palette="dark"></blendr-wave></div>
+        <div class="wave-card on-dark"><div class="meta"><span>variant</span><span>tail · teal</span></div><blendr-wave variant="tail" palette="teal"></blendr-wave></div>
+        <div class="wave-card on-dark"><div class="meta"><span>variant</span><span>frame · dark · animated</span></div><blendr-wave variant="frame" palette="dark" animated speed="16"></blendr-wave></div>
+      </div>
+
+      <!-- API snippet -->
+      <pre class="wave-api"><span class="c">// drop the script once</span>
+&lt;script src=<span class="s">"assets/waves.js"</span>&gt;&lt;/script&gt;
+
+<span class="c">// 1 · declarative</span>
+&lt;<span class="k">blendr-wave</span> variant=<span class="s">"stacked"</span> palette=<span class="s">"dark"</span> animated speed=<span class="s">"18"</span>&gt;&lt;/<span class="k">blendr-wave</span>&gt;
+
+<span class="c">// 2 · programmatic</span>
+<span class="k">BlendrWaves</span>.apply(el, { variant: <span class="s">'tail'</span>, palette: <span class="s">'mono'</span>, color: <span class="s">'#8BB6BA'</span> });
+
+<span class="c">// variants → </span>ribbon · stacked · arc · duet · tail · frame
+<span class="c">// palettes → </span>light · mist · dark · teal · mono · custom</pre>
+    </div>
+  </section>
+
+  <!-- ────────────── COMPONENTS ────────────── -->
+  <section id="components">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">05 <span class="pipe">|</span> Components</div>
+        <h2>A small, honest<br>UI kit.</h2>
+      </div>
+      <p>Rounded corners, generous line-height, muted surfaces, one brand button shape (999px). Shadows used sparingly; the waves do most of the visual work.</p>
+    </div>
+
+    <div class="comp-grid">
+      <div class="comp-card">
+        <h4>Buttons</h4>
+        <div class="btn-row">
+          <button class="btn primary">Start a project</button>
+          <button class="btn secondary">View case studies</button>
+          <button class="btn ghost">Get in touch</button>
+          <button class="btn text">Read the story</button>
+        </div>
+        <div class="btn-row" style="margin-top:16px">
+          <button class="btn primary sm">Subscribe</button>
+          <button class="btn secondary sm">Download</button>
+          <button class="btn ghost sm">Learn more</button>
+        </div>
+
+        <h4 style="margin-top:28px">Tags</h4>
+        <div class="tags">
+          <span class="tag">Branding</span>
+          <span class="tag sky">Strategy</span>
+          <span class="tag ink">Case Study</span>
+          <span class="tag">Identity</span>
+          <span class="tag sky">Web</span>
+        </div>
+
+        <h4 style="margin-top:28px">Inputs</h4>
+        <div class="input-row">
+          <label>Email</label>
+          <input class="input" placeholder="you@studio.com" />
+          <label>Project brief</label>
+          <input class="input" placeholder="A short description…" />
+        </div>
+
+        <h4 style="margin-top:28px">Social icons</h4>
+        <div class="social-row">
+          <div class="social-icon" title="LinkedIn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11.02 5 2.5 2.5 0 01-.02-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.06c.53-1 1.84-2.06 3.78-2.06 4.05 0 4.8 2.66 4.8 6.12V21h-4v-5.64c0-1.35-.03-3.08-1.88-3.08-1.88 0-2.16 1.47-2.16 2.98V21h-4V9z"/></svg>
+          </div>
+          <div class="social-icon" title="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </div>
+          <div class="social-icon" title="Facebook">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.3 0-1.4-.1-2.6-.1-2.6 0-4.3 1.6-4.3 4.5v2.1H7v3.1h2.8V21h3.7z"/></svg>
+          </div>
+          <div class="social-icon" title="YouTube">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.1c-.2-1.6-.8-2.8-2.5-3C17 5 12 5 12 5s-5 0-7.5.1C2.8 5.3 2.2 6.5 2 8.1 1.9 9.6 1.9 12 1.9 12s0 2.4.1 3.9c.2 1.6.8 2.8 2.5 3 2.5.1 7.5.1 7.5.1s5 0 7.5-.1c1.7-.2 2.3-1.4 2.5-3 .1-1.5.1-3.9.1-3.9s0-2.4-.1-3.9zM10 15.5V8.5l6 3.5-6 3.5z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-card" style="padding:0; overflow:hidden">
+        <div class="card-preview" style="border:0">
+          <div class="thumb"><span class="tag">Case Study</span></div>
+          <div class="body">
+            <div class="role">Branding · 2024</div>
+            <h3>Dia di Boneiru <span class="pipe">|</span> a flag for a feeling.</h3>
+            <p>A national day identity built around sun-bleached pastels, reinterpreted flags, and a full typographic system.</p>
+            <button class="btn text">Open case</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spacing & radius tokens -->
+    <div class="grid-2" style="margin-top: 24px">
+      <div class="comp-card">
+        <h4>Spacing scale</h4>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px">
+          <div style="display:flex; align-items:center; gap:16px"><div style="width:4px; height:4px; background:var(--deep-teal)"></div><span style="font-family:ui-monospace,monospace; font-size:12px; color:#5e7a7d; width:60px">4 · xs</span></div>
+          <div style="display:flex; align-items:center; gap:16px"><div style="width:8px; height:8px; background:var(--deep-teal)"></div><span style="font-family:ui-monospace,monospace; font-size:12px; color:#5e7a7d; width:60px">8 · sm</span></div>
+          <div style="display:flex; align-items:center; gap:16px"><div style="width:16px; height:16px; background:var(--deep-teal)"></div><span style="font-family:ui-monospace,monospace; font-size:12px; color:#5e7a7d; width:60px">16 · md</span></div>
+          <div style="display:flex; align-items:center; gap:16px"><div style="width:24px; height:24px; background:var(--deep-teal)"></div><span style="font-family:ui-monospace,monospace; font-size:12px; color:#5e7a7d; width:60px">24 · lg</span></div>
+          <div style="display:flex; align-items:center; gap:16px"><div style="width:40px; height:40px; background:var(--deep-teal)"></div><span style="font-family:ui-monospace,monospace; font-size:12px; color:#5e7a7d; width:60px">40 · xl</span></div>
+          <div style="display:flex; align-items:center; gap:16px"><div style="width:64px; height:64px; background:var(--deep-teal)"></div><span style="font-family:ui-monospace,monospace; font-size:12px; color:#5e7a7d; width:60px">64 · 2xl</span></div>
+          <div style="display:flex; align-items:center; gap:16px"><div style="width:96px; height:96px; background:var(--deep-teal)"></div><span style="font-family:ui-monospace,monospace; font-size:12px; color:#5e7a7d; width:60px">96 · 3xl</span></div>
+        </div>
+      </div>
+      <div class="comp-card">
+        <h4>Corner radius</h4>
+        <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:10px">
+          <div style="text-align:center"><div style="width:90px; height:90px; background:var(--sky); border-radius:6px"></div><div style="font-family:ui-monospace,monospace; font-size:11px; color:#5e7a7d; margin-top:6px">6 · sm</div></div>
+          <div style="text-align:center"><div style="width:90px; height:90px; background:var(--sky); border-radius:12px"></div><div style="font-family:ui-monospace,monospace; font-size:11px; color:#5e7a7d; margin-top:6px">12 · md</div></div>
+          <div style="text-align:center"><div style="width:90px; height:90px; background:var(--sky); border-radius:20px"></div><div style="font-family:ui-monospace,monospace; font-size:11px; color:#5e7a7d; margin-top:6px">20 · lg</div></div>
+          <div style="text-align:center"><div style="width:90px; height:90px; background:var(--sky); border-radius:32px"></div><div style="font-family:ui-monospace,monospace; font-size:11px; color:#5e7a7d; margin-top:6px">32 · xl</div></div>
+          <div style="text-align:center"><div style="width:90px; height:90px; background:var(--sky); border-radius:999px"></div><div style="font-family:ui-monospace,monospace; font-size:11px; color:#5e7a7d; margin-top:6px">999 · pill</div></div>
+        </div>
+        <h4 style="margin-top:28px">Elevation</h4>
+        <div style="display:flex; gap:16px; margin-top:10px">
+          <div style="flex:1; aspect-ratio:2/1; background:var(--paper); border-radius:12px; box-shadow:var(--shadow-sm); display:flex; align-items:center; justify-content:center; font-family:ui-monospace,monospace; font-size:11px; color:#5e7a7d">shadow-sm</div>
+          <div style="flex:1; aspect-ratio:2/1; background:var(--paper); border-radius:12px; box-shadow:var(--shadow-md); display:flex; align-items:center; justify-content:center; font-family:ui-monospace,monospace; font-size:11px; color:#5e7a7d">shadow-md</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────── APPLICATIONS ────────────── -->
+  <section id="applications">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">06 <span class="pipe">|</span> In the wild</div>
+        <h2>Applied,<br>not decorated.</h2>
+      </div>
+      <p>How the system behaves across touchpoints: a business card, an email signature, a deck cover, and a sampler of social posts.</p>
+    </div>
+
+    <div class="apps">
+      <!-- Biz Card -->
+      <div class="app-card">
+        <div class="label">Business Card <span class="pipe">|</span> front</div>
+        <h3>Signature, in the palm.</h3>
+        <div class="bizcard">
+          <div class="top"><img src="assets/blendr-logo-light.svg?v=3" alt=""></div>
+          <div class="bot">
+            <div class="name">Victor Pouchet</div>
+            <div class="role">Creative Director</div>
+            <div class="contact">+599 701-0672 · victor@blendrdesign.com<br>blendrdesign.com · Kralendijk, Bonaire</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Email sig -->
+      <div class="app-card tall">
+        <div class="label">Email Signature</div>
+        <h3>Less signature, more send-off.</h3>
+        <div class="emailsig">
+          <div class="name">Victor Pouchet</div>
+          <div class="role">Creative Director</div>
+          <div class="lines">
+            +599 701-0672 · +1 281-899-0479<br>
+            <a>victor@blendrdesign.com</a><br>
+            <a>www.blendrdesign.com</a>
+          </div>
+          <div class="socials">
+            <div class="s">f</div><div class="s">ig</div><div class="s">yt</div>
+          </div>
+          <div class="banner">
+            <div class="big">Strategy Led Design <em>for</em><br>Fast Moving Companies</div>
+            <img src="assets/blendr-logo-light.svg?v=3" alt="">
+          </div>
+        </div>
+      </div>
+
+      <!-- Social -->
+      <div class="app-card">
+        <div class="label">Social <span class="pipe">|</span> Brand grid</div>
+        <h3>Posts that pair.</h3>
+        <div class="social-grid">
+          <div class="sq"><img src="assets/social-14.png" alt=""></div>
+          <div class="sq"><img src="assets/social-22.png" alt=""></div>
+          <div class="sq"><img src="assets/social-24.png" alt=""></div>
+          <div class="sq"><img src="assets/social-19.png" alt=""></div>
+          <div class="sq"><img src="assets/social-25.png" alt=""></div>
+          <div class="sq"><img src="assets/social-26.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deck cover -->
+    <div class="app-card" style="margin-top:24px">
+      <div class="label">Presentation cover</div>
+      <h3>Editorial covers with one clear hero.</h3>
+      <div style="aspect-ratio:16/9; border-radius:var(--r-lg); overflow:hidden; background: var(--deep-teal) url('assets/bg-dark-01.png') center/cover; padding: 48px; color: var(--foam); display:flex; flex-direction:column; justify-content:space-between; position:relative;">
+        <div style="display:flex; justify-content:flex-end; font-size:12px; letter-spacing:.28em; font-weight:800; color:var(--foam)">JULY 2024</div>
+        <div>
+          <div style="font-family:var(--display); font-style:italic; font-weight:300; font-size:36px; color:var(--sky); letter-spacing:-.01em">Dia di Boneiru</div>
+          <div style="font-family:var(--display); font-weight:900; font-size:72px; line-height:.95; letter-spacing:-.02em; margin-top:4px">Logo Design <span style="color:var(--sky); font-weight:500">|</span> Concepts</div>
+        </div>
+        <div><img src="assets/blendr-logo-light.svg?v=3" style="height:48px" alt=""></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────── VOICE ────────────── -->
+  <section id="voice">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">07 <span class="pipe">|</span> Voice</div>
+        <h2>Clear. Crafted.<br>A little salt.</h2>
+      </div>
+      <p>Blendr speaks like a confident studio: short sentences, strong verbs, zero marketing-ese. An editorial publication's byline, not a billboard.</p>
+    </div>
+
+    <div class="voice-grid">
+      <div class="voice do">
+        <div class="label">Say this</div>
+        <blockquote>"Strategy led design for fast moving companies."</blockquote>
+      </div>
+      <div class="voice dont">
+        <div class="label">Not this</div>
+        <blockquote>"We leverage synergistic design thinking to empower next-gen brands."</blockquote>
+      </div>
+      <div class="voice do">
+        <div class="label">Say this</div>
+        <blockquote>"A flag for a feeling. Designed for Bonaire."</blockquote>
+      </div>
+      <div class="voice dont">
+        <div class="label">Not this</div>
+        <blockquote>"An innovative solution tailored to the beautiful island of Bonaire."</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="ds-footer">
+    <h2>Blendr, <em>in</em> one system.<br>Many surfaces.</h2>
+    <div class="right">
+      <b>v1.0 · April 2026</b>
+      Branding &amp; Design<br>
+      Kralendijk, Bonaire<br>
+      blendrdesign.com
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
